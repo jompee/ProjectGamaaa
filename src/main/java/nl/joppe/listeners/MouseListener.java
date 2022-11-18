@@ -19,6 +19,7 @@ public class MouseListener implements java.awt.event.MouseListener {
                 //right button
                 System.out.println("Right button");
                 break;
+
         }
     }
 

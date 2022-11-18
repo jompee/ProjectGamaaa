@@ -7,10 +7,13 @@ public class GameWindow extends JFrame {
 
     public GameWindow(GamePanel panel){
         frame = new JFrame();
-        frame.setSize(400, 400);
+
+        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         frame.add(panel);
         frame.setLocationRelativeTo(null);
+        frame.pack();
+        frame.setResizable(false);
         frame.setVisible(true);
-        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-    }
+
+        }
 }

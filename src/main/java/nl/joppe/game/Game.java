@@ -1,5 +1,7 @@
 package nl.joppe.game;
 
+import java.io.IOException;
+
 public class Game implements Runnable {
 
     private GameWindow window;
@@ -7,7 +9,7 @@ public class Game implements Runnable {
     private Thread thread;
     private final int FPS_SET = 120;
 
-    public Game() {
+    public Game() throws IOException {
         panel = new GamePanel();
         window = new GameWindow(panel);
         panel.requestFocus();
