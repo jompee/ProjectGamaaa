@@ -16,12 +16,13 @@ public class GamePanel extends JPanel {
 
     private int xDelta = 0, yDelta = 0;
     private BufferedImage image;
-    private BufferedImage[] idleAni;
-    private int aniTick, aniIndex, aniSpeed = 30;
+    private BufferedImage[][] animations;
+
+    private int aniTick, aniIndex, aniSpeed = 150;
 
     public GamePanel() throws IOException {
         MouseListener mouseListener = new MouseListener();
-        
+
         importImg();
         loadAnimations();
 
@@ -33,10 +34,11 @@ public class GamePanel extends JPanel {
     }
 
     private void loadAnimations() {
-        idleAni = new BufferedImage[5];
+        animations = new BufferedImage[9][6];
 
-       for (int i =0; i < idleAni.length; i++)
-           idleAni[i] = image.getSubimage(i*64, 0, 64, 40);
+        for (int j = 0; j < animations.length; j++)
+            for (int i = 0; i < animations[j].length; i++)
+                animations[j][i] = image.getSubimage(i * 64, j * 40, 64, 40);
 
 
     }
@@ -46,16 +48,15 @@ public class GamePanel extends JPanel {
         InputStream is = getClass().getResourceAsStream("/Player_sprites.png");
         try {
             image = ImageIO.read(is);
-        }catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             try {
                 is.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-
 
 
     }
@@ -68,30 +69,30 @@ public class GamePanel extends JPanel {
 
     }
 
-    public void changeYDelta(int value){
+    public void changeYDelta(int value) {
         this.yDelta += value;
     }
 
-    public void changeXDelta(int value){
+    public void changeXDelta(int value) {
         this.xDelta += value;
     }
+
     private void UpdateAnimationTick() {
-        aniTick++;
-        if (aniTick >= aniSpeed ) {
-          aniTick = 0;
-          aniIndex++;
-          if(aniIndex >= idleAni.length)
-              aniIndex = 0;
+        //  aniTick++;
+        //   if (aniTick >= aniSpeed) {
+        //     aniTick = 0;
+        //      aniIndex++;
+        //      if (aniIndex >= 6)
+        //           aniIndex = 0;
 
-        }
+    //}
     }
-
-    public void paintComponent(Graphics graphics){
-        super.paintComponent(graphics);
+    public void paintComponent (Graphics g){
+        super.paintComponent(g);
 
         UpdateAnimationTick();
 
-        graphics.drawImage(idleAni[aniIndex], (int) xDelta,(int) yDelta,128,80,null);
-
+        g.drawImage(animations[7][1], (int) xDelta, (int) yDelta, 128, 80, null);
+        repaint();
     }
 }

@@ -50,5 +50,6 @@ public class Game implements Runnable {
 
     private void startGameLoop() throws Exception {
         thread = new Thread(this);
+        thread.start();
     }
 }
