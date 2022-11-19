@@ -78,21 +78,21 @@ public class GamePanel extends JPanel {
     }
 
     private void UpdateAnimationTick() {
-        //  aniTick++;
-        //   if (aniTick >= aniSpeed) {
-        //     aniTick = 0;
-        //      aniIndex++;
-        //      if (aniIndex >= 6)
-        //           aniIndex = 0;
+          aniTick++;
+          if (aniTick >= aniSpeed) {
+            aniTick = 0;
+            aniIndex++;
+            if (aniIndex >= 6)
+                  aniIndex = 0;
 
-    //}
+        }
     }
     public void paintComponent (Graphics g){
         super.paintComponent(g);
 
         UpdateAnimationTick();
 
-        g.drawImage(animations[7][1], (int) xDelta, (int) yDelta, 128, 80, null);
+        g.drawImage(animations[1][aniIndex], (int) xDelta, (int) yDelta, 128, 80, null);
         repaint();
     }
 }
