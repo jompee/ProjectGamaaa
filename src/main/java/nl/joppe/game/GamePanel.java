@@ -30,15 +30,16 @@ public class GamePanel extends JPanel {
 
 
     public GamePanel() throws IOException {
+        KeyboardListener keyboardListener = new KeyboardListener(this);
         MouseListener mouseListener = new MouseListener();
+
+        addKeyListener(keyboardListener);
+        addMouseListener(mouseListener);
 
         importImg();
         loadAnimations();
 
-        KeyboardListener keyboardListener = new KeyboardListener(this);
         setPanelSize();
-        addKeyListener(keyboardListener);
-        addMouseListener(mouseListener);
         this.requestFocus();
     }
 
