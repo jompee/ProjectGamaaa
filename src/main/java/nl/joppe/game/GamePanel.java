@@ -1,6 +1,5 @@
 package nl.joppe.game;
 
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import nl.joppe.listeners.KeyboardListener;
 import nl.joppe.listeners.MouseListener;
 

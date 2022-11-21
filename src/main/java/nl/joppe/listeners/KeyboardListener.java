@@ -12,6 +12,8 @@ public class KeyboardListener implements KeyListener {
     private GamePanel panel;
 
     public KeyboardListener(GamePanel panel){
+        this.panel = null;
+        assert this.panel == null;
         this.panel = panel;
     }
 
