@@ -18,7 +18,7 @@ public class Player extends Entity{
     private int aniTick, aniIndex, aniSpeed = 30;
     private int playerAction = IDLE;
     private static int playerDir = -1;
-    private static boolean moving = false;
+    private static boolean moving = false, attacking = false;
     private boolean left, up, right, down;
     private float playerSpeed = 2.0f;
 
@@ -44,17 +44,33 @@ public class Player extends Entity{
         if (aniTick >= aniSpeed) {
             aniTick = 0;
             aniIndex++;
-            if (aniIndex >= GetSpriteAmount (playerAction))
+            if (aniIndex >= GetSpriteAmount(playerAction)){
                 aniIndex = 0;
-
+                attacking = false;
+            }
         }
     }
     private void setAnimation() {
+
+        int startAni = playerAction;
+
         if (moving)
             playerAction = RUNNING;
         else
             playerAction = IDLE;
+
+        if(attacking)
+            playerAction = ATTACK_1;
+
+        if (startAni != playerAction )
+            resetAniTick();
     }
+
+    private void resetAniTick() {
+        aniTick = 0;
+        aniIndex = 0;
+    }
+
     private void updatePos() {
 
         moving = false;
@@ -86,7 +102,7 @@ public class Player extends Entity{
 
             for (int j = 0; j < animations.length; j++)
                 for (int i = 0; i < animations[j].length; i++)
-                    animations[j][i] = image.getSubimage(i * 64, j * 10, 64, 40);
+                    animations[j][i] = image.getSubimage(i * 64,  j * 30, 64, 40);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -98,6 +114,15 @@ public class Player extends Entity{
             }
 
         }
+    }
+    public void resetDirBooleans() {
+        left = false;
+        right = false;
+        up = false;
+        down = false;
+    }
+    public void setAttacking(boolean attacking){
+       this.attacking = attacking;
     }
     public boolean isLeft() {
         return left;
