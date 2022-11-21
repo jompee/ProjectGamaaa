@@ -7,35 +7,33 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 
+import static nl.joppe.game.Game.GAME_HEIGHT;
+import static nl.joppe.game.Game.GAME_WIDTH;
+
+
 public class GamePanel extends JPanel {
     private static Game game;
-    public GamePanel(Game game) throws IOException {
+
+    public GamePanel(Game game)  {
         KeyboardListener keyboardListener = new KeyboardListener(this);
         MouseListener mouseListener = new MouseListener();
         this.game = game;
 
         addKeyListener(keyboardListener);
         addMouseListener(mouseListener);
-
-
         setPanelSize();
         this.requestFocus();
     }
 
     private void setPanelSize() {
-        Dimension size = new Dimension(1280, 800);
-        setMinimumSize(size);
+        Dimension size = new Dimension(GAME_WIDTH, GAME_HEIGHT);
         setPreferredSize(size);
-        setMaximumSize(size);
     }
     public void updateGame(){
     }
     public void paintComponent (Graphics g){
         super.paintComponent(g);
-
-        game.reder(g);
-
-        repaint();
+        game.render(g);
     }
     public static Game getGame(){
         return game;

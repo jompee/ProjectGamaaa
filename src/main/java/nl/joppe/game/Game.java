@@ -1,5 +1,6 @@
 package nl.joppe.game;
 
+import Levels.LevelManager;
 import nl.joppe.entities.Player;
 
 import java.awt.*;
@@ -9,10 +10,19 @@ public class Game implements Runnable {
 
     private GameWindow window;
     private GamePanel panel;
-    private Thread thread;
+    private Thread gameThread;
     private final int FPS_SET = 120;
     private final int UPS_SET = 200;
     private Player player;
+    private LevelManager levelManager;
+
+    public final static int TILES_DEFAULT_SIZE = 32;
+    public final static int SCALE = (int) 1f;
+    public final static int TILES_IN_WIDTH = 26;
+    public final static int TILES_IN_HEIGHT = 14;
+    public final static int TILES_SIZE = TILES_DEFAULT_SIZE * SCALE;
+    public final static int GAME_WIDTH = TILES_SIZE * TILES_IN_WIDTH;
+    public final static int GAME_HEIGHT = TILES_SIZE * TILES_IN_HEIGHT;
 
     public Game() throws Exception {
         initClasses();
@@ -21,27 +31,32 @@ public class Game implements Runnable {
         panel.requestFocus();
 
         startGameLoop();
-
         try {
-            startGameLoop();
-            System.out.println("started game thread.");
+           startGameLoop();
+           System.out.println("started game thread.");
         } catch (Exception e) {
-            throw new RuntimeException(e);
+           throw new RuntimeException(e);
         }
     }
     public void update (){
         player.update();
+        levelManager.update();
 
     }
-    public void reder(Graphics g){
+    public void render(Graphics g){
+        levelManager.draw(g);
         player.render(g);
+
 
 
     }
 
     private void initClasses() {
-        player = new Player(200, 200);
+        player = new Player(200, 200, (int)(64 * SCALE), (int)(40 * SCALE));
+        levelManager = new LevelManager(this);
     }
+
+
 
 
     @Override
@@ -93,8 +108,8 @@ public class Game implements Runnable {
     }
 
     private void startGameLoop() throws Exception {
-        thread = new Thread(this);
-        thread.start();
+        gameThread = new Thread(this);
+        gameThread.start();
     }
     public void windowFocusLost() {
         player.resetDirBooleans();
