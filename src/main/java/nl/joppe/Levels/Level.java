@@ -1,6 +1,9 @@
-package Levels;
+package nl.joppe.Levels;
+
+import nl.joppe.utilz.Loadsave;
 
 public class Level {
+
     private int[][] lvlData;
 
     public Level(int[][] lvlData) {
@@ -12,3 +15,4 @@ public class Level {
     }
 
 }
+

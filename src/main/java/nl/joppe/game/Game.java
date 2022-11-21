@@ -1,10 +1,9 @@
 package nl.joppe.game;
 
-import Levels.LevelManager;
+import nl.joppe.Levels.LevelManager;
 import nl.joppe.entities.Player;
 
 import java.awt.*;
-import java.io.IOException;
 
 public class Game implements Runnable {
 
