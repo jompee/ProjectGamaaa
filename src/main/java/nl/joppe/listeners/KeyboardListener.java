@@ -4,6 +4,8 @@ import nl.joppe.game.GamePanel;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import static nl.joppe.utilz.Constants.Directions.*;
+
 
 public class KeyboardListener implements KeyListener {
 
@@ -12,6 +14,7 @@ public class KeyboardListener implements KeyListener {
     public KeyboardListener(GamePanel panel){
         this.panel = panel;
     }
+
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -22,19 +25,19 @@ public class KeyboardListener implements KeyListener {
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()){
             case KeyEvent.VK_W:
-                panel.changeYDelta(-5);
+                GamePanel.setDirection(UP);
                 System.out.println("w");
                 break;
             case KeyEvent.VK_A:
-                panel.changeXDelta(-5);
+                GamePanel.setDirection(LEFT);
                 System.out.println("a");
                 break;
             case KeyEvent.VK_S:
-                panel.changeYDelta(5);
+                GamePanel.setDirection(DOWN);
                 System.out.println("s");
                 break;
             case KeyEvent.VK_D:
-                panel.changeXDelta(5);
+                GamePanel.setDirection(RIGHT);
                 System.out.println("d");
                 break;
         }
@@ -43,5 +46,14 @@ public class KeyboardListener implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_W:
+            case KeyEvent.VK_A:
+            case KeyEvent.VK_S:
+            case KeyEvent.VK_D:
+                GamePanel.setMoving(false);
+                break;
+
+        }
     }
 }
