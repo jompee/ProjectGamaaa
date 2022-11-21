@@ -26,34 +26,37 @@ public class KeyboardListener implements KeyListener {
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_W:
+                GamePanel.getGame().getPlayer().setUp(false);
+                System.out.println("w");
             case KeyEvent.VK_A:
+                GamePanel.getGame().getPlayer().setLeft(false);
+                System.out.println("a");
             case KeyEvent.VK_S:
+                GamePanel.getGame().getPlayer().setDown(false);
+                System.out.println("s");
             case KeyEvent.VK_D:
-                GamePanel.getGame().getPlayer().setMoving(false);
+                GamePanel.getGame().getPlayer().setRight(false);
+                System.out.println("d");
                 break;
         }
         }
             @Override
     public void keyPressed(KeyEvent e) {
-        switch (e.getKeyCode()){
-            case KeyEvent.VK_W:
-                GamePanel.getGame().getPlayer().setDirection(UP);
-                System.out.println("w");
-                break;
-            case KeyEvent.VK_A:
-                GamePanel.getGame().getPlayer().setDirection(LEFT);
-                System.out.println("a");
-                break;
-            case KeyEvent.VK_S:
-                GamePanel.getGame().getPlayer().setDirection(DOWN);
-                System.out.println("s");
-                break;
-            case KeyEvent.VK_D:
-                GamePanel.getGame().getPlayer().setDirection(RIGHT);
-                System.out.println("d");
-                break;
-        }
-
+                switch (e.getKeyCode()) {
+                    case KeyEvent.VK_W:
+                        GamePanel.getGame().getPlayer().setUp(true);
+                        System.out.println("w");
+                    case KeyEvent.VK_A:
+                        GamePanel.getGame().getPlayer().setLeft(true);
+                        System.out.println("a");
+                    case KeyEvent.VK_S:
+                        GamePanel.getGame().getPlayer().setDown(true);
+                        System.out.println("s");
+                    case KeyEvent.VK_D:
+                        GamePanel.getGame().getPlayer().setRight(true);
+                        System.out.println("d");
+                        break;
+                }
     }
 
 }
