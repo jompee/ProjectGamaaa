@@ -21,9 +21,7 @@ public class Constants {
          public static final int ATTACK_JUMP_2 = 8;
 
          public static int GetSpriteAmount(int Player_action) {
-
              switch (Player_action) {
-
                  case RUNNING:
                      return 6;
                  case IDLE:

@@ -3,6 +3,7 @@ package nl.joppe.listeners;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import nl.joppe.game.Game;
 import nl.joppe.game.GamePanel;
 import static nl.joppe.utilz.Constants.Directions.*;
 
@@ -20,20 +21,27 @@ public class KeyboardListener implements KeyListener {
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
-        switch (e.getKeyCode()) {
-            case KeyEvent.VK_W:
-                gamePanel.getGame().getPlayer().setUp(false);
+      public void keyReleased(KeyEvent e) {
+            switch (e.getKeyCode()) {
+                case KeyEvent.VK_W:
+                GamePanel.getGame().getPlayer().setUp(false);
+                System.out.println("w");
                 break;
             case KeyEvent.VK_A:
-                gamePanel.getGame().getPlayer().setLeft(false);
+                GamePanel.getGame().getPlayer().setLeft(false);
+                System.out.println("a");
                 break;
             case KeyEvent.VK_S:
-                gamePanel.getGame().getPlayer().setDown(false);
+                GamePanel.getGame().getPlayer().setDown(false);
+                System.out.println("s");
                 break;
             case KeyEvent.VK_D:
-                gamePanel.getGame().getPlayer().setRight(false);
+                GamePanel.getGame().getPlayer().setRight(false);
+                System.out.println("d");
                 break;
+                case KeyEvent.VK_SPACE:
+                    GamePanel.getGame().getPlayer().setUp(true);
+                    break;
         }
     }
 
@@ -41,16 +49,23 @@ public class KeyboardListener implements KeyListener {
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_W:
-                gamePanel.getGame().getPlayer().setUp(true);
+                GamePanel.getGame().getPlayer().setUp(true);
+                System.out.println("w");
                 break;
             case KeyEvent.VK_A:
-                gamePanel.getGame().getPlayer().setLeft(true);
+                GamePanel.getGame().getPlayer().setLeft(true);
+                System.out.println("a");
                 break;
             case KeyEvent.VK_S:
-                gamePanel.getGame().getPlayer().setDown(true);
+                GamePanel.getGame().getPlayer().setDown(true);
+                System.out.println("s");
                 break;
             case KeyEvent.VK_D:
-                gamePanel.getGame().getPlayer().setRight(true);
+                GamePanel.getGame().getPlayer().setRight(true);
+                System.out.println("d");
+                break;
+            case KeyEvent.VK_SPACE:
+                GamePanel.getGame().getPlayer().setUp(true);
                 break;
         }
     }

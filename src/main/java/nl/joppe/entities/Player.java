@@ -20,11 +20,13 @@ public class Player extends Entity{
 
     public void update() {
         updatePos();
+        updateHitbox();
         UpdateAnimationTick();
         setAnimation();
     }
     public void render(Graphics g) {
-        g.drawImage(animations[playerAction][aniIndex], (int) x, (int) y, 64, 40, null);
+        g.drawImage(animations[playerAction][aniIndex], (int) x, (int) y, 128, 8, null);
+        drawhitbox(g);
     }
 
     private void UpdateAnimationTick() {
@@ -58,24 +60,22 @@ public class Player extends Entity{
         aniIndex = 0;
     }
     private void updatePos() {
-
         moving = false;
+        if(!left && !right && !up && !down)
+            return;
 
-        if(left && !right) {
-            x -= playerSpeed;
-            moving = true;
-         }else if(right && !left){
-            x += playerSpeed;
-            moving = true;
-        }
-        if(up && !down) {
-            y -= playerSpeed;
-            moving = true;
-        } else if (right && !left) {
-            y -= playerSpeed;
-            moving = true;
+        float xSpeed = 0, ySpeed = 0;
 
-        }
+        if(left && !right)
+            xSpeed = - playerSpeed;
+        else if (right && !left)
+            xSpeed = playerSpeed;
+
+        if (up && !down)
+            ySpeed = - playerSpeed;
+        else if (down && !up)
+            ySpeed = playerSpeed;
+
 
     }
 

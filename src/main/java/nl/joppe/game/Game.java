@@ -16,7 +16,7 @@ public class Game implements Runnable {
     private LevelManager levelManager;
 
     public final static int TILES_DEFAULT_SIZE = 32;
-    public final static int SCALE = (int) 1f;
+    public final static int SCALE = (int) 2f;
     public final static int TILES_IN_WIDTH = 26;
     public final static int TILES_IN_HEIGHT = 14;
     public final static int TILES_SIZE = TILES_DEFAULT_SIZE * SCALE;
@@ -27,35 +27,31 @@ public class Game implements Runnable {
         initClasses();
         panel = new GamePanel(this);
         window = new GameWindow(panel);
+        panel.setFocusable(true);
         panel.requestFocus();
 
         startGameLoop();
-        try {
-           startGameLoop();
-           System.out.println("started game thread.");
-        } catch (Exception e) {
+         try {
+          startGameLoop();
+          System.out.println("started game thread.");
+       ; } catch (Exception e) {
            throw new RuntimeException(e);
         }
     }
     public void update (){
         player.update();
         levelManager.update();
-
     }
+
     public void render(Graphics g){
         levelManager.draw(g);
         player.render(g);
-
-
-
     }
 
     private void initClasses() {
         player = new Player(200, 200, (int)(64 * SCALE), (int)(40 * SCALE));
         levelManager = new LevelManager(this);
     }
-
-
 
 
     @Override

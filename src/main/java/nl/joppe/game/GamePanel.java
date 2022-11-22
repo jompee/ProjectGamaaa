@@ -15,13 +15,12 @@ public class GamePanel extends JPanel {
     private static Game game;
 
     public GamePanel(Game game)  {
-        KeyboardListener keyboardListener = new KeyboardListener(this);
         MouseListener mouseListener = new MouseListener();
         this.game = game;
-
-        addKeyListener(keyboardListener);
+        addKeyListener(new KeyboardListener(this));
         addMouseListener(mouseListener);
         setPanelSize();
+        this.setFocusable(true);
         this.requestFocus();
     }
 
@@ -29,12 +28,15 @@ public class GamePanel extends JPanel {
         Dimension size = new Dimension(GAME_WIDTH, GAME_HEIGHT);
         setPreferredSize(size);
     }
+
     public void updateGame(){
     }
+
     public void paintComponent (Graphics g){
         super.paintComponent(g);
         game.render(g);
     }
+
     public static Game getGame(){
         return game;
     }
