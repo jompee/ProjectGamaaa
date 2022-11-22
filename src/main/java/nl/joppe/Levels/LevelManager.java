@@ -8,11 +8,11 @@ import nl.joppe.utilz.Loadsave;
 
 public class LevelManager {
 
-    private Game game;
+    private String game;
     private BufferedImage[] levelSprite;
     private Level levelOne;
 
-    public LevelManager(Game game) {
+    public LevelManager(String game) {
         this.game = game;
         importOutsideSprites();
         levelOne = new Level(Loadsave.GetLevelData());
@@ -38,6 +38,9 @@ public class LevelManager {
 
     public void update() {
 
+    }
+    public Level getCurrentLevel () {
+        return levelOne;
     }
 
 }
