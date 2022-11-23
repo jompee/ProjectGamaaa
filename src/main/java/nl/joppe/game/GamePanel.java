@@ -11,16 +11,17 @@ import static nl.joppe.game.Game.GAME_WIDTH;
 
 
 public class GamePanel extends JPanel {
-    private static Game game;
 
-    public GamePanel(Game game)  {
-        MouseInputs mouseListener = new MouseInputs(this);
+    private MouseInputs mouseInputs;
+    private Game game;
+
+    public GamePanel(Game game) {
+        mouseInputs = new MouseInputs(this);
         this.game = game;
-        addKeyListener(new KeyboardListener(this));
-        addMouseListener(mouseListener);
         setPanelSize();
-        this.setFocusable(true);
-        this.requestFocus();
+        addKeyListener(new KeyboardListener(this));
+        addMouseListener(mouseInputs);
+        addMouseMotionListener(mouseInputs);
     }
 
     private void setPanelSize() {
@@ -28,15 +29,17 @@ public class GamePanel extends JPanel {
         setPreferredSize(size);
     }
 
-    public void updateGame(){
+    public void updateGame() {
+
     }
 
-    public void paintComponent (Graphics g){
+    public void paintComponent(Graphics g) {
         super.paintComponent(g);
         game.render(g);
     }
 
-    public static Game getGame(){
+    public Game getGame() {
         return game;
     }
+
 }

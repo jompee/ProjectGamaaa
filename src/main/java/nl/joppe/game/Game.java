@@ -8,6 +8,7 @@ import javax.swing.text.html.HTMLDocument;
 import java.awt.*;
 
 public class Game implements Runnable {
+
     private GameWindow gameWindow;
     private GamePanel gamePanel;
     private Thread gameThread;
@@ -30,6 +31,7 @@ public class Game implements Runnable {
 
         gamePanel = new GamePanel(this);
         gameWindow = new GameWindow(gamePanel);
+        gamePanel.setFocusable(true);
         gamePanel.requestFocus();
 
         startGameLoop();
@@ -54,7 +56,10 @@ public class Game implements Runnable {
             case PLAYING:
                 playing.update();
                 break;
+            case OPTIONS:
+            case QUIT:
             default:
+                System.exit(0);
                 break;
 
         }

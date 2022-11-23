@@ -4,6 +4,7 @@ import nl.joppe.Levels.LevelManager;
 import nl.joppe.entities.Player;
 import nl.joppe.game.Game;
 import nl.joppe.game.GamePanel;
+import nl.joppe.ui.PauseOverlay;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -12,6 +13,8 @@ import java.awt.event.MouseEvent;
 public class Playing extends State implements Statemethods {
     private Player player;
     private LevelManager levelManager;
+    private PauseOverlay pauseOverlay;
+    private boolean paused = false;
 
     public Playing(Game game) {
         super(game.toString());
@@ -19,17 +22,20 @@ public class Playing extends State implements Statemethods {
     }
 
     private void initClasses() {
-        levelManager = new LevelManager(game);
+        levelManager = new LevelManager(game.toString());
         player = new Player(200, 200, (int) (64 * Game.SCALE), (int) (40 * Game.SCALE));
         player.loadLvlData(levelManager.getCurrentLevel().getLevelData());
-
+        pauseOverlay = new PauseOverlay(this);
     }
 
     @Override
     public void update() {
-        levelManager.update();
-        player.update();
-
+        if (!paused) {
+            levelManager.update();
+            player.update();
+        } else {
+            pauseOverlay.update();
+        }
     }
 
     @Override
@@ -37,6 +43,8 @@ public class Playing extends State implements Statemethods {
         levelManager.draw(g);
         player.render(g);
 
+        if (paused)
+            pauseOverlay.draw(g);
     }
 
     @Override
@@ -57,8 +65,8 @@ public class Playing extends State implements Statemethods {
             case KeyEvent.VK_SPACE:
                 player.setJump(true);
                 break;
-            case KeyEvent.VK_BACK_SPACE:
-                Gamestate.state = Gamestate.MENU;
+            case KeyEvent.VK_ESCAPE:
+                paused = !paused;
                 break;
         }
     }
@@ -79,22 +87,34 @@ public class Playing extends State implements Statemethods {
 
     }
 
+    public void mouseDragged(MouseEvent e) {
+        if (paused)
+            pauseOverlay.mouseDragged(e);
+    }
+
     @Override
     public void mousePressed(MouseEvent e) {
-        // TODO Auto-generated method stub
+        if (paused)
+            pauseOverlay.mousePressed(e);
 
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        // TODO Auto-generated method stub
+        if (paused)
+            pauseOverlay.mouseReleased(e);
 
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        // TODO Auto-generated method stub
+        if (paused)
+            pauseOverlay.mouseMoved(e);
 
+    }
+
+    public void unpauseGame() {
+        paused = false;
     }
 
     public void windowFocusLost() {

@@ -2,39 +2,53 @@ package nl.joppe.gamestats;
 
 import nl.joppe.game.Game;
 import nl.joppe.ui.MenuButton;
+import nl.joppe.utilz.Loadsave;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 
 public class Menu extends State implements Statemethods {
-
-    public MenuButton[] buttons = new MenuButton[3];
+    private MenuButton[] buttons = new MenuButton[3];
+    private BufferedImage backgroundImg;
+    private int menuX, menuY, menuWidth, menuHeight;
 
     public Menu(String game) {
-        super(game);
+        super(game.toString());
         loadButtons();
+        loadBackground();
+
+    }
+
+    private void loadBackground() {
+        backgroundImg = Loadsave.GetSpriteAtlas(Loadsave.MENU_BACKGROUND);
+        menuWidth = (int) (backgroundImg.getWidth() * Game.SCALE);
+        menuHeight = (int) (backgroundImg.getHeight() * Game.SCALE);
+        menuX = Game.GAME_WIDTH / 2 - menuWidth / 2;
+        menuY = (int) (45 * Game.SCALE);
 
     }
 
     private void loadButtons() {
-        buttons[0] = new MenuButton(Game.GAME_WIDTH / 2, (int) (150 * Game.SCALE), 0,Gamestate.PLAYING);
-        buttons[1] = new MenuButton(Game.GAME_WIDTH / 2, (int) (220 * Game.SCALE), 1,Gamestate.OPTIONS);
-        buttons[2] = new MenuButton(Game.GAME_WIDTH / 2, (int) (290 * Game.SCALE), 2,Gamestate.QUIT);
-
+        buttons[0] = new MenuButton(Game.GAME_WIDTH / 2, (int) (150 * Game.SCALE), 0, Gamestate.PLAYING);
+        buttons[1] = new MenuButton(Game.GAME_WIDTH / 2, (int) (220 * Game.SCALE), 1, Gamestate.OPTIONS);
+        buttons[2] = new MenuButton(Game.GAME_WIDTH / 2, (int) (290 * Game.SCALE), 2, Gamestate.QUIT);
     }
 
     @Override
     public void update() {
-        for (MenuButton menuButton : buttons)
-            menuButton.update();
-
+        for (MenuButton mb : buttons)
+            mb.update();
     }
 
     @Override
     public void draw(Graphics g) {
-        for (MenuButton menuButton : buttons)
-            menuButton.draw(g);
+
+        g.drawImage(backgroundImg, menuX, menuY, menuWidth, menuHeight, null);
+
+        for (MenuButton mb : buttons)
+            mb.draw(g);
     }
 
     @Override
@@ -45,45 +59,47 @@ public class Menu extends State implements Statemethods {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        for (MenuButton menuButton : buttons){
-            if(isIn(e,menuButton)){
-                menuButton.setMousePressed(true);
-                break;
+        for (MenuButton mb : buttons) {
+            if (isIn(e, mb)) {
+                mb.setMousePressed(true);
             }
         }
-
 
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        for (MenuButton menuButton : buttons){
-            if (isIn(e,menuButton)) {
-                if (menuButton.isMousePressed())
-                    menuButton.applyGameState();
+        for (MenuButton mb : buttons) {
+            if (isIn(e, mb)) {
+                if (mb.isMousePressed())
+                    mb.applyGamestate();
                 break;
             }
         }
+
         resetButtons();
 
     }
 
     private void resetButtons() {
-        for (MenuButton menuButton : buttons)
-            menuButton.resetBools();
+        for (MenuButton mb : buttons)
+            mb.resetBools();
+
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        for (MenuButton menuButton : buttons)
-            menuButton.setMouseOver(false);
+        for (MenuButton mb : buttons)
+            mb.setMouseOver(false);
 
-        for (MenuButton menuButton : buttons)
-            if (isIn(e, menuButton)) {
-                menuButton.setMouseOver(true);
+        for (MenuButton mb : buttons)
+            if (isIn(e, mb)) {
+                mb.setMouseOver(true);
                 break;
             }
+
     }
+
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_ENTER)

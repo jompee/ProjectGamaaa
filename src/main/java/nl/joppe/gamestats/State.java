@@ -11,9 +11,11 @@ public class State {
     public State(String game) {
         this.game = game;
     }
-    public boolean isIn(MouseEvent e, MenuButton menuButton) {
-        return menuButton.getBounds().contains(e.getX(), e.getY());
+
+    public boolean isIn(MouseEvent e, MenuButton mb) {
+        return mb.getBounds().contains(e.getX(), e.getY());
     }
+
 
     public String getGame() {
         return game;
