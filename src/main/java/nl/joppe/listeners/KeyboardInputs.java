@@ -3,17 +3,16 @@ package nl.joppe.listeners;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import nl.joppe.game.Game;
 import nl.joppe.game.GamePanel;
 import nl.joppe.gamestats.Gamestate;
 
-import static nl.joppe.utilz.Constants.Directions.*;
+public class KeyboardInputs implements KeyListener {
 
-public class KeyboardListener implements KeyListener {
+
 
     private GamePanel gamePanel;
 
-    public KeyboardListener(GamePanel gamePanel) {
+    public KeyboardInputs(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
     }
 

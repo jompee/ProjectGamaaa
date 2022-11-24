@@ -2,7 +2,24 @@ package nl.joppe.utilz;
 
 import nl.joppe.game.Game;
 
+import javax.swing.*;
+
 public class Constants {
+
+    public static class Envirement {
+        public static final int BIG_CLOUD_W_DEFAULT = 448;
+        public static final int BIG_COULD_H_DEFAULT = 101;
+        public static final int SMALL_CLOUD_W_DEFAULT = 74;
+        public static final int SMALL_COULD_H_DEFAULT = 24;
+
+        public static final int BIG_CLOUD_W =  (int)(BIG_CLOUD_W_DEFAULT * Game.SCALE);
+        public static final int BIG_CLOUD_H =  (int)(BIG_COULD_H_DEFAULT * Game.SCALE);
+        public static final int SMALL_CLOUD_W =  (int)(SMALL_CLOUD_W_DEFAULT * Game.SCALE);
+        public static final int SMALL_CLOUD_H =  (int)(SMALL_COULD_H_DEFAULT * Game.SCALE);
+
+
+    }
+
     public static class UI {
         public static class Buttons {
             public static final int B_WIDTH_DEFAULT = 140;
@@ -74,5 +91,7 @@ public class Constants {
     }
 
 }
+
+
 
 

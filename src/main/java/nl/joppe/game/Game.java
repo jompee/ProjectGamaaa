@@ -4,7 +4,6 @@ import nl.joppe.gamestats.Gamestate;
 import nl.joppe.gamestats.Playing;
 import nl.joppe.gamestats.Menu;
 import nl.joppe.gamestats.Playing;
-import javax.swing.text.html.HTMLDocument;
 import java.awt.*;
 
 public class Game implements Runnable {

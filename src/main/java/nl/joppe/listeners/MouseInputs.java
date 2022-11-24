@@ -9,6 +9,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 public class MouseInputs implements java.awt.event.MouseListener, MouseMotionListener {
+
     private GamePanel gamePanel;
 
     public MouseInputs(GamePanel gamePanel) {
@@ -99,5 +100,4 @@ public class MouseInputs implements java.awt.event.MouseListener, MouseMotionLis
     public void mouseExited(MouseEvent e) {
 
     }
-
 }

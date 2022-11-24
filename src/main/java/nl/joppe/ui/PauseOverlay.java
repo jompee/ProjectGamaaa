@@ -16,6 +16,7 @@ import static nl.joppe.utilz.Constants.UI.VolumeButtons.*;
 
 public class PauseOverlay {
 
+
     private Playing playing;
     private BufferedImage backgroundImg;
     private int bgX, bgY, bgW, bgH;

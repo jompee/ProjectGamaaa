@@ -4,7 +4,6 @@ import nl.joppe.game.Game;
 import nl.joppe.utilz.Loadsave;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.EventListener;
 
 import static nl.joppe.utilz.Constants.PlayerConstants.*;
 import static nl.joppe.utilz.HelpMethods.*;
@@ -40,7 +39,7 @@ public class Player extends Entity{
         setAnimation();
     }
 
-    public void render(Graphics g) {
+    public void render(Graphics g, int xLvlOffset) {
         g.drawImage(animations[playerAction][aniIndex], (int) (hitbox.x - xDrawOffset), (int) (hitbox.y - yDrawOffset), width, height, null);
 //		drawHitbox(g);
     }
@@ -154,7 +153,7 @@ public class Player extends Entity{
         animations = new BufferedImage[9][6];
         for (int j = 0; j < animations.length; j++)
             for (int i = 0; i < animations[j].length; i++)
-                animations[j][i] = img.getSubimage(i * 64, j * 27, 64, 40);
+                animations[j][i] = img.getSubimage(i * 64, j * 40, 64, 40);
 
     }
 

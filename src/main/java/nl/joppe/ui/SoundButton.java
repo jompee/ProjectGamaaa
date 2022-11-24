@@ -9,6 +9,7 @@ import static nl.joppe.utilz.Constants.UI.PauseButtons.*;
 
 public class SoundButton extends PauseButton {
 
+
     private BufferedImage[][] soundImgs;
     private boolean mouseOver, mousePressed;
     private boolean muted;

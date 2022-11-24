@@ -1,6 +1,6 @@
 package nl.joppe.game;
 
-import nl.joppe.listeners.KeyboardListener;
+import nl.joppe.listeners.KeyboardInputs;
 import nl.joppe.listeners.MouseInputs;
 
 import javax.swing.*;
@@ -19,7 +19,7 @@ public class GamePanel extends JPanel {
         mouseInputs = new MouseInputs(this);
         this.game = game;
         setPanelSize();
-        addKeyListener(new KeyboardListener(this));
+        addKeyListener(new KeyboardInputs(this));
         addMouseListener(mouseInputs);
         addMouseMotionListener(mouseInputs);
     }
