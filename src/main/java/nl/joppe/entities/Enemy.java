@@ -2,6 +2,7 @@ package nl.joppe.entities;
 
 import nl.joppe.Main;
 import nl.joppe.game.Game;
+import org.ietf.jgss.GSSManager;
 
 import java.awt.geom.Rectangle2D;
 
@@ -18,6 +19,9 @@ public abstract class Enemy extends Entity{
     protected float gravity = 0.04f * Game.SCALE;
     protected float walkSpeed = 0.35f * Game.SCALE;
     protected int walkDir = LEFT;
+    protected int tileY;
+    protected float attackDistance = Game.TILES_SIZE;
+
 
     public Enemy(float x, float y, int width, int height, int enemyType) {
         super(x, y, width, height);
@@ -37,6 +41,7 @@ public abstract class Enemy extends Entity{
             } else {
                 inAir = false;
                 hitbox.y = GetEntityYPosUnderRoofOrAboveFloor(hitbox, fallSpeed);
+                tileY = (int)(hitbox.y / Game.TILES_SIZE);
             }
 
     }
@@ -57,6 +62,39 @@ public abstract class Enemy extends Entity{
         changeWalkDir();
     }
 
+    protected void turnTowardPlayer(Player player) {
+        if (player.hitbox.x > hitbox.x)
+            walkDir = RIGHT;
+        else
+            walkDir = LEFT;
+    }
+
+    protected boolean canSeePlayer(int[][] lvldata, Player player) {
+        int playerTileY = (int) (player.getHitbox().y / Game.TILES_SIZE);
+        if (playerTileY == tileY)
+            if (isPlayerinRange(player)) {
+                if (IsSightClear(lvldata, hitbox, player.hitbox, tileY))
+                    return true;
+            }
+        return false;
+    }
+
+    protected boolean isPlayerinRange(Player player) {
+        int absValue = (int) Math.abs(player.hitbox.x - hitbox.x);
+        return absValue <= attackDistance * 5;
+    }
+
+    protected boolean isPlayerCloseForAttack(Player player) {
+        int absValue = (int) Math.abs(player.hitbox.x - hitbox.x);
+        return absValue <= attackDistance;
+    }
+
+    protected void newState(int enemyState) {
+        this.enemyState = enemyState;
+        aniTick = 0;
+        aniIndex = 0;
+    }
+
     protected void updateAnimationTick() {
         aniTick++;
         if (aniTick >= aniSpeed) {
@@ -64,6 +102,8 @@ public abstract class Enemy extends Entity{
             aniIndex++;
             if (aniIndex >= GetSpriteAmount(enemyType, enemyState)) {
                 aniIndex = 0;
+                if (enemyState == ATTACK)
+                    enemyState = IDLE;
             }
         }
     }

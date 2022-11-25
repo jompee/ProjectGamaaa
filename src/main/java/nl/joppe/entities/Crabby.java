@@ -2,9 +2,7 @@ package nl.joppe.entities;
 
 import nl.joppe.game.Game;
 
-import static nl.joppe.utilz.Constants.Directions.LEFT;
 import static nl.joppe.utilz.Constants.EnemyConstants.*;
-import static nl.joppe.utilz.HelpMethods.*;
 
 public class Crabby extends Enemy {
 
@@ -14,12 +12,12 @@ public class Crabby extends Enemy {
 
     }
 
-    public void update(int[][] lvlData) {
-        updateMove(lvlData);
+    public void update(int[][] lvlData,Player player) {
+        updateMove(lvlData, player);
         updateAnimationTick();
 
     }
-    private void updateMove(int[][] lvlData) {
+    private void updateMove(int[][] lvlData, Player player) {
         if (firstUpdate)
             firstUpdateCheck(lvlData);
         if (inAir)
@@ -27,9 +25,15 @@ public class Crabby extends Enemy {
         else {
             switch (enemyState) {
                 case IDLE:
-                    enemyState = RUNNING;
+                    newState(RUNNING);
                     break;
                 case RUNNING:
+
+                    if (canSeePlayer(lvlData, player))
+                        turnTowardPlayer(player);
+                    if (isPlayerCloseForAttack(player))
+                        newState(ATTACK);
+
                     move(lvlData);
                     break;
             }

@@ -28,6 +28,7 @@ public class Player extends Entity{
     private float fallSpeedAfterCollision = 0.5f * Game.SCALE;
     private boolean inAir = false;
 
+
     public Player(float x, float y, int width, int height) {
         super(x, y, width, height);
         loadAnimations();

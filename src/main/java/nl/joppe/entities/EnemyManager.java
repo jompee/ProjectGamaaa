@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Vector;
 
 import static nl.joppe.utilz.Constants.EnemyConstants.*;
 public class EnemyManager {
@@ -25,9 +26,9 @@ public class EnemyManager {
 
         }
 
-        public void update(int[][] lvlData) {
+        public void update(int[][] lvlData, Player player) {
                 for (Crabby c : crabbies)
-                        c.update(lvlData);
+                        c.update(lvlData, player);
         }
 
         public void draw(Graphics g, int xLvlOffset) {
