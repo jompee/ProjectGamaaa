@@ -1,22 +1,28 @@
 package nl.joppe.gamestats;
 
+import nl.joppe.entities.Crabby;
 import nl.joppe.Levels.LevelManager;
+import nl.joppe.entities.EnemyManager;
 import nl.joppe.entities.Player;
 import nl.joppe.game.Game;
+import nl.joppe.ui.GameOverOverlay;
 import nl.joppe.ui.PauseOverlay;
 import nl.joppe.utilz.Loadsave;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
-import static nl.joppe.utilz.Constants.Envirement.*;
+import static nl.joppe.utilz.Constants.Environment.*;
+
 
 public class Playing extends State implements Statemethods {
     private Player player;
     private LevelManager levelManager;
+    private EnemyManager enemyManager;
     private PauseOverlay pauseOverlay;
     private boolean paused = false;
 
@@ -27,10 +33,9 @@ public class Playing extends State implements Statemethods {
     private int maxTilesOffset = lvlTilesWide - Game.TILES_IN_WIDTH;
     private int maxLvlOffsetX = maxTilesOffset * Game.TILES_SIZE;
 
-    private BufferedImage backgroundImg, bigCloud ,smallCloud;
-    private int [] smallCloudsPos;
+    private BufferedImage backgroundImg, bigCloud, smallCloud;
+    private int[] smallCloudsPos;
     private Random rnd = new Random();
-
 
     public Playing(Game game) {
         super(game.toString());
@@ -41,11 +46,12 @@ public class Playing extends State implements Statemethods {
         smallCloud = Loadsave.GetSpriteAtlas(Loadsave.SMALL_CLOUDS);
         smallCloudsPos = new int[8];
         for (int i = 0; i < smallCloudsPos.length; i++)
-            smallCloudsPos[i] = (int)(90 * Game.SCALE) + rnd.nextInt((int) (100 * Game.SCALE));
+            smallCloudsPos[i] = (int) (90 * Game.SCALE) + rnd.nextInt((int) (100 * Game.SCALE));
     }
 
     private void initClasses() {
         levelManager = new LevelManager(game);
+        enemyManager = new EnemyManager(this);
         player = new Player(200, 200, (int) (64 * Game.SCALE), (int) (40 * Game.SCALE));
         player.loadLvlData(levelManager.getCurrentLevel().getLevelData());
         pauseOverlay = new PauseOverlay(this);
@@ -56,6 +62,7 @@ public class Playing extends State implements Statemethods {
         if (!paused) {
             levelManager.update();
             player.update();
+            enemyManager.update(levelManager.getCurrentLevel().getLevelData());
             checkCloseToBorder();
         } else {
             pauseOverlay.update();
@@ -80,12 +87,13 @@ public class Playing extends State implements Statemethods {
 
     @Override
     public void draw(Graphics g) {
-        g.drawImage(backgroundImg,0 , 0, Game.GAME_WIDTH, Game.GAME_HEIGHT, null);
+        g.drawImage(backgroundImg, 0, 0, Game.GAME_WIDTH, Game.GAME_HEIGHT, null);
 
         drawClouds(g);
 
         levelManager.draw(g, xLvlOffset);
         player.render(g, xLvlOffset);
+        enemyManager.draw(g, xLvlOffset);
 
         if (paused) {
             g.setColor(new Color(0, 0, 0, 150));
@@ -95,10 +103,13 @@ public class Playing extends State implements Statemethods {
     }
 
     private void drawClouds(Graphics g) {
-        for (int  i = 0; i < 3; i++)
-        g.drawImage(bigCloud,i * BIG_CLOUD_W - (int)(xLvlOffset * 0.3), (int) (204 * Game.SCALE), BIG_CLOUD_W,  BIG_CLOUD_H, null);
-        for (int  i = 0; i < smallCloudsPos.length; i++)
-        g.drawImage(smallCloud,SMALL_CLOUD_W * 4 * i - (int)(xLvlOffset * 0.7), smallCloudsPos[i] , SMALL_CLOUD_W, SMALL_CLOUD_H, null);
+
+        for (int i = 0; i < 3; i++)
+            g.drawImage(bigCloud, i * BIG_CLOUD_WIDTH - (int) (xLvlOffset * 0.3), (int) (204 * Game.SCALE), BIG_CLOUD_WIDTH, BIG_CLOUD_HEIGHT, null);
+
+        for (int i = 0; i < smallCloudsPos.length; i++)
+            g.drawImage(smallCloud, SMALL_CLOUD_WIDTH * 4 * i - (int) (xLvlOffset * 0.7), smallCloudsPos[i], SMALL_CLOUD_WIDTH, SMALL_CLOUD_HEIGHT, null);
+
     }
 
     @Override
@@ -112,15 +123,12 @@ public class Playing extends State implements Statemethods {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_A:
                 player.setLeft(true);
-                System.out.println("a");
                 break;
             case KeyEvent.VK_D:
                 player.setRight(true);
-                System.out.println("d");
                 break;
             case KeyEvent.VK_SPACE:
                 player.setJump(true);
-                System.out.println("space");
                 break;
             case KeyEvent.VK_ESCAPE:
                 paused = !paused;
@@ -183,4 +191,3 @@ public class Playing extends State implements Statemethods {
     }
 
 }
-

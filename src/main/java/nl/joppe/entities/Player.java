@@ -1,8 +1,10 @@
 package nl.joppe.entities;
 
 import nl.joppe.game.Game;
+import nl.joppe.gamestats.Playing;
 import nl.joppe.utilz.Loadsave;
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
 import static nl.joppe.utilz.Constants.PlayerConstants.*;
@@ -39,9 +41,9 @@ public class Player extends Entity{
         setAnimation();
     }
 
-    public void render(Graphics g, int xLvlOffset) {
-        g.drawImage(animations[playerAction][aniIndex], (int) (hitbox.x - xDrawOffset), (int) (hitbox.y - yDrawOffset), width, height, null);
-//		drawHitbox(g);
+    public void render(Graphics g, int lvlOffset) {
+        g.drawImage(animations[playerAction][aniIndex], (int) (hitbox.x - xDrawOffset) - lvlOffset, (int) (hitbox.y - yDrawOffset), width, height, null);
+//		drawHitbox(g, lvlOffset);
     }
 
     private void updateAnimationTick() {
@@ -90,8 +92,10 @@ public class Player extends Entity{
 
         if (jump)
             jump();
-        if (!left && !right && !inAir)
-            return;
+
+        if (!inAir)
+            if ((!left && !right) || (right && left))
+                return;
 
         float xSpeed = 0;
 

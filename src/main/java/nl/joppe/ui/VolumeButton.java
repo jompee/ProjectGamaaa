@@ -7,13 +7,12 @@ import java.awt.image.BufferedImage;
 import static nl.joppe.utilz.Constants.UI.VolumeButtons.*;
 
 
-public class VolumeButton extends PauseButton{
-
+public class VolumeButton extends PauseButton {
     private BufferedImage[] imgs;
     private BufferedImage slider;
     private int index = 0;
     private boolean mouseOver, mousePressed;
-    private int buttonX, minX, maxX ;
+    private int buttonX, minX, maxX;
 
     public VolumeButton(int x, int y, int width, int height) {
         super(x + width / 2, y, VOLUME_WIDTH, height);
@@ -85,3 +84,7 @@ public class VolumeButton extends PauseButton{
         this.mousePressed = mousePressed;
     }
 }
+
+
+
+

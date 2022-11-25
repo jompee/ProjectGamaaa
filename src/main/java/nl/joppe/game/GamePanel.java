@@ -2,10 +2,8 @@ package nl.joppe.game;
 
 import nl.joppe.listeners.KeyboardInputs;
 import nl.joppe.listeners.MouseInputs;
-
 import javax.swing.*;
 import java.awt.*;
-
 import static nl.joppe.game.Game.GAME_HEIGHT;
 import static nl.joppe.game.Game.GAME_WIDTH;
 
