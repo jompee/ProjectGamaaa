@@ -2,11 +2,9 @@ package nl.joppe.entities;
 
 import nl.joppe.game.Game;
 
-import java.awt.*;
-import java.awt.geom.Rectangle2D;
-
-import static nl.joppe.utilz.Constants.Directions.RIGHT;
+import static nl.joppe.utilz.Constants.Directions.LEFT;
 import static nl.joppe.utilz.Constants.EnemyConstants.*;
+import static nl.joppe.utilz.HelpMethods.*;
 
 public class Crabby extends Enemy {
 
@@ -16,6 +14,28 @@ public class Crabby extends Enemy {
 
     }
 
+    public void update(int[][] lvlData) {
+        updateMove(lvlData);
+        updateAnimationTick();
+
+    }
+    private void updateMove(int[][] lvlData) {
+        if (firstUpdate)
+            firstUpdateCheck(lvlData);
+        if (inAir)
+            updateInAir(lvlData);
+        else {
+            switch (enemyState) {
+                case IDLE:
+                    enemyState = RUNNING;
+                    break;
+                case RUNNING:
+                    move(lvlData);
+                    break;
+            }
+        }
+    }
 }
+
 
 
