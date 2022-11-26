@@ -1,11 +1,16 @@
 package nl.joppe.entities;
 
+import nl.joppe.Levels.LevelManager;
 import nl.joppe.game.Game;
 import nl.joppe.gamestats.Playing;
+import nl.joppe.ui.GameOverOverlay;
+import nl.joppe.ui.LevelCompletedOverLay;
+import nl.joppe.ui.PauseOverlay;
 import nl.joppe.utilz.Loadsave;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+import java.util.Random;
 
 import static nl.joppe.utilz.Constants.PlayerConstants.*;
 import static nl.joppe.utilz.HelpMethods.*;
@@ -62,6 +67,13 @@ public class Player extends Entity{
         initAttackBox();
     }
 
+    public void setSpawn(Point spawn) {
+        this.x = spawn.x;
+        this.y = spawn.y;
+        hitbox.x = x;
+        hitbox.y = y;
+    }
+
     private void initAttackBox() {
         attackBox = new Rectangle2D.Float(x, y, (int) (20 * Game.SCALE), (int) (20 * Game.SCALE));
     }
@@ -114,7 +126,6 @@ public class Player extends Entity{
     private void drawAttackBox(Graphics g, int lvlOffsetX) {
         g.setColor(Color.red);
         g.drawRect((int) attackBox.x - lvlOffsetX, (int) attackBox.y, (int) attackBox.width, (int) attackBox.height);
-
     }
 
     private void drawUI(Graphics g) {
@@ -221,7 +232,6 @@ public class Player extends Entity{
             return;
         inAir = true;
         airSpeed = jumpSpeed;
-
     }
 
     private void resetInAir() {

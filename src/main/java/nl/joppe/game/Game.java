@@ -4,10 +4,11 @@ import nl.joppe.gamestats.Gamestate;
 import nl.joppe.gamestats.Playing;
 import nl.joppe.gamestats.Menu;
 import nl.joppe.gamestats.Playing;
+import nl.joppe.utilz.Loadsave;
+
 import java.awt.*;
 
 public class Game implements Runnable {
-
 
     private GameWindow gameWindow;
     private GamePanel gamePanel;
@@ -27,6 +28,7 @@ public class Game implements Runnable {
     public final static int GAME_HEIGHT = TILES_SIZE * TILES_IN_HEIGHT;
 
     public Game() {
+        Loadsave.GetAllLevels();
         initClasses();
 
         gamePanel = new GamePanel(this);
@@ -35,11 +37,10 @@ public class Game implements Runnable {
         gamePanel.requestFocus();
 
         startGameLoop();
-
     }
 
     private void initClasses() {
-        menu = new Menu(this.toString());
+        menu = new Menu(this);
         playing = new Playing(this);
     }
 

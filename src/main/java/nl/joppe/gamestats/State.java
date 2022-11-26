@@ -1,14 +1,15 @@
 package nl.joppe.gamestats;
 
+import nl.joppe.game.Game;
 import nl.joppe.ui.MenuButton;
 
 import java.awt.event.MouseEvent;
 
 public class State {
 
-    protected String game;
+    protected Game game;
 
-    public State(String game) {
+    public State(Game game) {
         this.game = game;
     }
 
@@ -17,7 +18,7 @@ public class State {
     }
 
 
-    public String getGame() {
+    public Game getGame() {
         return game;
     }
 }

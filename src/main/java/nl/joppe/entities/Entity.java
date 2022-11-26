@@ -1,5 +1,7 @@
 package nl.joppe.entities;
 
+import nl.joppe.game.Game;
+
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 

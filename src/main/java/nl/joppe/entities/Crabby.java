@@ -10,7 +10,6 @@ import static nl.joppe.utilz.Constants.Directions.*;
 import static nl.joppe.utilz.Constants.EnemyConstants.*;
 
 public class Crabby extends Enemy {
-    // AttackBox
     private Rectangle2D.Float attackBox;
     private int attackBoxOffsetX;
 
@@ -29,13 +28,11 @@ public class Crabby extends Enemy {
         updateBehavior(lvlData, player);
         updateAnimationTick();
         updateAttackBox();
-
     }
 
     private void updateAttackBox() {
         attackBox.x = hitbox.x - attackBoxOffsetX;
         attackBox.y = hitbox.y;
-
     }
 
     private void updateBehavior(int[][] lvlData, Player player) {
@@ -51,26 +48,23 @@ public class Crabby extends Enemy {
                     break;
                 case RUNNING:
                     if (canSeePlayer(lvlData, player)) {
-                        turnTowardPlayer(player);
+                        turnTowardsPlayer(player);
                         if (isPlayerCloseForAttack(player))
                             newState(ATTACK);
                     }
+
                     move(lvlData);
                     break;
                 case ATTACK:
                     if (aniIndex == 0)
                         attackChecked = false;
-
-                    // Changed the name for checkEnemyHit to checkPlayerHit
                     if (aniIndex == 3 && !attackChecked)
-                        checkEnemyHit(attackBox, player);
-
+                        checkPlayerHit(attackBox, player);
                     break;
                 case HIT:
                     break;
             }
         }
-
     }
 
     public void drawAttackBox(Graphics g, int xLvlOffset) {
@@ -90,7 +84,5 @@ public class Crabby extends Enemy {
             return -1;
         else
             return 1;
-
     }
-
 }
