@@ -32,7 +32,7 @@ public class EnemyManager {
                                 c.update(lvlData, player);
                                 isAnyActive = true;
                         }
-                if(!isAnyActive)
+                if (!isAnyActive)
                         playing.setLevelCompleted(true);
         }
 
@@ -47,7 +47,6 @@ public class EnemyManager {
                                         CRABBY_WIDTH * c.flipW(), CRABBY_HEIGHT, null);
 //				c.drawHitbox(g, xLvlOffset);
 //				c.drawAttackBox(g, xLvlOffset);
-
                         }
 
         }
@@ -75,5 +74,3 @@ public class EnemyManager {
         }
 
 }
-
-
