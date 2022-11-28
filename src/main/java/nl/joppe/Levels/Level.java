@@ -1,7 +1,9 @@
 package nl.joppe.Levels;
 
+import nl.joppe.Objects.Cannon;
 import nl.joppe.Objects.GameContainer;
 import nl.joppe.Objects.Potion;
+import nl.joppe.Objects.Spike;
 import nl.joppe.entities.Crabby;
 import nl.joppe.game.Game;
 import nl.joppe.utilz.HelpMethods;
@@ -22,6 +24,8 @@ public class Level {
     private ArrayList<Crabby> crabs;
     private ArrayList<Potion> potions;
     private ArrayList<GameContainer> containers;
+    private ArrayList<Spike> spikes;
+    private ArrayList<Cannon> cannons;
     private int lvlTilesWide;
     private int maxTilesOffset;
     private int maxLvlOffsetX;
@@ -33,8 +37,18 @@ public class Level {
         createEnemies();
         createPotions();
         createContainers();
+        createSpikes();
+        createCannons();
         calcLvlOffsets();
         calcPlayerSpawn();
+    }
+
+    private void createCannons() {
+        cannons = HelpMethods.GetCannons(img);
+    }
+
+    private void createSpikes() {
+        spikes = HelpMethods.GetSpikes(img);
     }
 
     private void createContainers() {
@@ -87,6 +101,11 @@ public class Level {
     public ArrayList<GameContainer> getContainers() {
         return containers;
     }
-
+    public ArrayList<Spike> getSpikes() {
+        return spikes;
+    }
+    public ArrayList<Cannon> getCannons() {
+        return cannons;
+    }
 }
 

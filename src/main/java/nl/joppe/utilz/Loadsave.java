@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.security.PublicKey;
 import java.util.Objects;
 
 public class Loadsave {
@@ -26,6 +27,8 @@ public class Loadsave {
     public static final String CRABBY_SPRITE = "crabby_sprite.png";
     public static final String STATUS_BAR = "health_power_bar.png";
     public static final String COMPLETED_IMG = "completed_sprite.png";
+    public static final String TRAP_ATLAS = "trap_atlas.png";
+    public static final String CANNON_ATLAS = "cannon_atlas.png";
 
     public static final String POTION_ATLAS = "potions_sprites.png";
     public static final String CONTAINER_ATLAS = "objects_sprites.png";

@@ -13,7 +13,6 @@ import static nl.joppe.utilz.HelpMethods.*;
 
 public class Player extends Entity{
     private BufferedImage[][] animations;
-
     private boolean moving = false, attacking = false;
     private boolean left, right, jump;
     private int[][] lvlData;
@@ -23,7 +22,6 @@ public class Player extends Entity{
     // Jumping / Gravity
     private float jumpSpeed = -2.25f * Game.SCALE;
     private float fallSpeedAfterCollision = 0.5f * Game.SCALE;
-
 
     // StatusBarUI
     private BufferedImage statusBarImg;
@@ -37,8 +35,6 @@ public class Player extends Entity{
     private int healthBarHeight = (int) (4 * Game.SCALE);
     private int healthBarXStart = (int) (34 * Game.SCALE);
     private int healthBarYStart = (int) (14 * Game.SCALE);
-
-
     private int healthWidth = healthBarWidth;
 
     private int flipX = 0;
@@ -55,7 +51,7 @@ public class Player extends Entity{
         this.currentHealth = maxHealth;
         this.walkSpeed = Game.SCALE * 1.0f;
         loadAnimations();
-        initHitbox( 20,27);
+        initHitbox(20, 27);
         initAttackBox();
     }
 
@@ -67,7 +63,7 @@ public class Player extends Entity{
     }
 
     private void initAttackBox() {
-        attackBox = new Rectangle2D.Float(x, y, (int) (20 * Game.SCALE),(int)(20 * Game.SCALE));
+        attackBox = new Rectangle2D.Float(x, y, (int) (20 * Game.SCALE), (int) (20 * Game.SCALE));
     }
 
     public void update() {
@@ -81,23 +77,31 @@ public class Player extends Entity{
         updateAttackBox();
 
         updatePos();
-        if (moving)
-            playing.checkPotionTouched(hitbox);
+        if (moving) {
+            checkPotionTouched();
+            checkSpikesTouched();
+        }
         if (attacking)
             checkAttack();
+
         updateAnimationTick();
         setAnimation();
     }
-    public void checkPotionTouched(){
+
+    private void checkSpikesTouched() {
+      playing.checkSpikesTouched(this);
+    }
+
+    private void checkPotionTouched() {
         playing.checkPotionTouched(hitbox);
     }
+
     private void checkAttack() {
         if (attackChecked || aniIndex != 1)
             return;
         attackChecked = true;
         playing.checkEnemyHit(attackBox);
-        playing.checkObjectHit(hitbox);
-
+        playing.checkObjectHit(attackBox);
     }
 
     private void updateAttackBox() {
@@ -120,7 +124,6 @@ public class Player extends Entity{
         drawUI(g);
     }
 
-
     private void drawUI(Graphics g) {
         g.drawImage(statusBarImg, statusBarX, statusBarY, statusBarWidth, statusBarHeight, null);
         g.setColor(Color.red);
@@ -137,9 +140,7 @@ public class Player extends Entity{
                 attacking = false;
                 attackChecked = false;
             }
-
         }
-
     }
 
     private void setAnimation() {
@@ -248,6 +249,14 @@ public class Player extends Entity{
             currentHealth = maxHealth;
     }
 
+    public void kill() {
+        currentHealth = 0;
+    }
+
+    public void changePower(int value) {
+        System.out.println("Added power!");
+    }
+
     private void loadAnimations() {
         BufferedImage img = Loadsave.GetSpriteAtlas(Loadsave.PLAYER_ATLAS);
         animations = new BufferedImage[7][8];
@@ -306,10 +315,5 @@ public class Player extends Entity{
 
         if (!IsEntityOnFloor(hitbox, lvlData))
             inAir = true;
-    }
-
-    public void changePower(int value) {
-        System.out.println("I FEEL POWERFULLL");
-
     }
 }
