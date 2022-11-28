@@ -27,6 +27,9 @@ public class Loadsave {
     public static final String STATUS_BAR = "health_power_bar.png";
     public static final String COMPLETED_IMG = "completed_sprite.png";
 
+    public static final String POTION_ATLAS = "potions_sprites.png";
+    public static final String CONTAINER_ATLAS = "objects_sprites.png";
+
     public static BufferedImage GetSpriteAtlas(String fileName) {
         BufferedImage img = null;
         InputStream is = Loadsave.class.getResourceAsStream("/" + fileName);
@@ -50,9 +53,9 @@ public class Loadsave {
         File file = null;
 
         try {
-             file = new File(url.toURI());
-    } catch (URISyntaxException e) {
-        e.printStackTrace();
+            file = new File(url.toURI());
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
         }
 
         File[] files = file.listFiles();

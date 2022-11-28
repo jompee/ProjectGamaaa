@@ -1,16 +1,11 @@
 package nl.joppe.entities;
 
-import nl.joppe.Levels.LevelManager;
 import nl.joppe.game.Game;
 import nl.joppe.gamestats.Playing;
-import nl.joppe.ui.GameOverOverlay;
-import nl.joppe.ui.LevelCompletedOverLay;
-import nl.joppe.ui.PauseOverlay;
 import nl.joppe.utilz.Loadsave;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-import java.util.Random;
 
 import static nl.joppe.utilz.Constants.*;
 import static nl.joppe.utilz.Constants.PlayerConstants.*;
@@ -86,17 +81,22 @@ public class Player extends Entity{
         updateAttackBox();
 
         updatePos();
+        if (moving)
+            playing.checkPotionTouched(hitbox);
         if (attacking)
             checkAttack();
         updateAnimationTick();
         setAnimation();
     }
-
+    public void checkPotionTouched(){
+        playing.checkPotionTouched(hitbox);
+    }
     private void checkAttack() {
         if (attackChecked || aniIndex != 1)
             return;
         attackChecked = true;
         playing.checkEnemyHit(attackBox);
+        playing.checkObjectHit(hitbox);
 
     }
 
@@ -308,4 +308,8 @@ public class Player extends Entity{
             inAir = true;
     }
 
+    public void changePower(int value) {
+        System.out.println("I FEEL POWERFULLL");
+
+    }
 }
