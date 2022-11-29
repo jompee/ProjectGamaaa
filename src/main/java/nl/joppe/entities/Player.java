@@ -95,7 +95,7 @@ public class Player extends Entity{
                 aniTick = 0;
                 aniIndex = 0;
                 playing.setPlayerDying(true);
-                playing.getGame().getAudioPlayer().playEffect(AudioPlayer.DIE);
+              //  playing.getGame().getAudioPlayer().playEffect(AudioPlayer.DIE);
 
                 // Check if player died in air
                 if (!IsEntityOnFloor(hitbox, lvlData)) {
@@ -104,8 +104,8 @@ public class Player extends Entity{
                 }
             } else if (aniIndex == GetSpriteAmount(DEAD) - 1 && aniTick >= ANI_SPEED - 1) {
                 playing.setGameOver(true);
-                playing.getGame().getAudioPlayer().stopSong();
-                playing.getGame().getAudioPlayer().playEffect(AudioPlayer.GAMEOVER);
+             //   playing.getGame().getAudioPlayer().stopSong();
+             //   playing.getGame().getAudioPlayer().playEffect(AudioPlayer.GAMEOVER);
             } else {
                 updateAnimationTick();
 
@@ -175,7 +175,7 @@ public class Player extends Entity{
 
         playing.checkEnemyHit(attackBox);
         playing.checkObjectHit(attackBox);
-        playing.getGame().getAudioPlayer().playAttackSound();
+      //  playing.getGame().getAudioPlayer().playAttackSound();
     }
 
     private void setAttackBoxOnRightSide() {
@@ -358,7 +358,7 @@ public class Player extends Entity{
     private void jump() {
         if (inAir)
             return;
-        playing.getGame().getAudioPlayer().playEffect(AudioPlayer.JUMP);
+      //  playing.getGame().getAudioPlayer().playEffect(AudioPlayer.JUMP);
         inAir = true;
         airSpeed = jumpSpeed;
     }

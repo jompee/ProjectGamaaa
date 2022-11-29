@@ -67,7 +67,7 @@ public class Loadsave {
     }
 
     public static BufferedImage[] GetAllLevels() {
-        URL url = Loadsave.class.getResource("/lvls");
+        URL url = Loadsave.class.getResource("/res");
         File file = null;
 
         try {
