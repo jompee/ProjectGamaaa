@@ -100,7 +100,7 @@ public class Pinkstar extends Enemy{
             xSpeed *= 2;
 
         if (CanMoveHere(hitbox.x + xSpeed, hitbox.y, hitbox.width, hitbox.height, lvlData))
-            if (IsFloor(hitbox, lvlData)) {
+            if (IsFloor(hitbox, xSpeed, lvlData)) {
                 hitbox.x += xSpeed;
                 return;
             }
@@ -128,5 +128,6 @@ public class Pinkstar extends Enemy{
     }
 
 }
+
 
 
